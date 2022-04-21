@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.recentnews.R
-import uz.gita.recentnews.data.model.responce.ArticlesItem
+import uz.gita.recentnews.data.source.local.room.entity.NewsEntity
 
-class NewsListAdapter : ListAdapter<ArticlesItem, NewsListAdapter.NewsListViewHolder>(NewsDiffUtil) {
+class NewsListAdapter : ListAdapter<NewsEntity, NewsListAdapter.NewsListViewHolder>(NewsDiffUtil) {
 
-    object NewsDiffUtil : DiffUtil.ItemCallback<ArticlesItem>() {
+    object NewsDiffUtil : DiffUtil.ItemCallback<NewsEntity>() {
 
-        override fun areItemsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
+        override fun areItemsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
             return oldItem.title == newItem.title
         }
-        override fun areContentsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
+        override fun areContentsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
             return oldItem == newItem
         }
     }
