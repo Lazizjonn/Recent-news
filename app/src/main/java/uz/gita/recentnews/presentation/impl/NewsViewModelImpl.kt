@@ -48,7 +48,7 @@ class NewsViewModelImpl @Inject constructor(
             }.launchIn(viewModelScope)
 
         } else {
-            repository.getAllNewsFromRoom(query)
+           loadNewsLivedata.value =  repository.getAllNewsFromRoom(query)
             progressLivedata.value = false
         }
     }

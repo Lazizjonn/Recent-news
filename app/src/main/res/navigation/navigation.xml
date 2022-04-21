@@ -9,14 +9,33 @@
         android:id="@+id/newsListFragment"
         android:name="uz.gita.recentnews.ui.screen.NewsListFragment"
         android:label="fragment_news_list"
-        tools:layout="@layout/fragment_news_list" >
+        tools:layout="@layout/fragment_news_list">
         <action
             android:id="@+id/action_newsListFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="uz.gita.recentnews.ui.screen.NewsFragment"
+        android:name="uz.gita.recentnews.ui.screen.ReadMoreFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_read_more">
+        <argument
+            android:name="data"
+            app:argType="uz.gita.recentnews.data.source.local.room.entity.NewsEntity" />
+        <action
+            android:id="@+id/action_newsFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="uz.gita.recentnews.ui.screen.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite">
+        <action
+            android:id="@+id/action_favouriteFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
 </navigation>

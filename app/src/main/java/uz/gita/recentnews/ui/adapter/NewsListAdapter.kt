@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,16 +16,21 @@ import uz.gita.recentnews.data.source.local.room.entity.NewsEntity
 
 class NewsListAdapter : ListAdapter<NewsEntity, NewsListAdapter.NewsListViewHolder>(NewsDiffUtil) {
 
+    private var listener: ((NewsEntity) -> Unit)? = null
+
     object NewsDiffUtil : DiffUtil.ItemCallback<NewsEntity>() {
 
         override fun areItemsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
             return oldItem.title == newItem.title
         }
+
         override fun areContentsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
             return oldItem == newItem
         }
     }
+
     inner class NewsListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var buttonNext: ConstraintLayout? = null
         var isfav: AppCompatCheckBox? = null
         var title: TextView? = null
         var author: TextView? = null
@@ -33,6 +39,7 @@ class NewsListAdapter : ListAdapter<NewsEntity, NewsListAdapter.NewsListViewHold
         var descriptionNews: TextView? = null
 
         init {
+            buttonNext = view.findViewById(R.id.clickItem)
             title = view.findViewById(R.id.titleNews)
             author = view.findViewById(R.id.authorNews)
             timestamp = view.findViewById(R.id.time_stamp)
@@ -40,6 +47,7 @@ class NewsListAdapter : ListAdapter<NewsEntity, NewsListAdapter.NewsListViewHold
             descriptionNews = view.findViewById(R.id.descriptionNews)
             isfav = view.findViewById(R.id.isFav)
         }
+
         fun bind() {
             val item = getItem(absoluteAdapterPosition)
             title!!.text = item.title
@@ -50,15 +58,27 @@ class NewsListAdapter : ListAdapter<NewsEntity, NewsListAdapter.NewsListViewHold
                 .placeholder(R.drawable.error_icon)
                 .error(R.drawable.error_icon)
                 .into(image!!)
-
             descriptionNews!!.text = item.description
             isfav!!.isChecked = false
+
+            buttonNext?.let {
+                it.setOnClickListener {
+                    listener?.invoke(item)
+                }
+            }
+
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListViewHolder {
         return NewsListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false))
     }
+
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         holder.bind()
+    }
+
+    fun setListener(block: (NewsEntity) -> Unit) {
+        listener = block
     }
 }

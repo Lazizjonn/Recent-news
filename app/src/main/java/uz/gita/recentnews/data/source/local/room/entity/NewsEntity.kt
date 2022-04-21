@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import uz.gita.recentnews.data.model.responce.ArticlesItem
+import java.io.Serializable
 
 @Entity(tableName = "news_entity")
 data class NewsEntity(
@@ -19,7 +20,7 @@ data class NewsEntity(
     val timestamp: String,
     @SerializedName("category_name")
     val categoryName: String
-)
+) : Serializable
 
 
 

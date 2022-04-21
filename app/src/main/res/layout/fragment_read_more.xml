@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screen.NewsFragment">
+    tools:context=".ui.screen.ReadMoreFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/toolbar"
@@ -51,8 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/titleNews"
             app:layout_constraintTop_toTopOf="parent"
-            tools:button="@drawable/favourite_drawable" />
-
+            android:button="@drawable/favourite_drawable" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

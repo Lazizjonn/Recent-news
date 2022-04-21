@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/drawable/favourite_drawable.xml" value="0.11" />
+        <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/drawable/ic_heart.xml" value="0.11" />
+        <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/drawable/ic_heart2.xml" value="0.1105" />
+        <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/drawable/ic_unheart.xml" value="0.11" />
         <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/category.xml" value="0.209375" />
+        <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/fragment_favourite.xml" value="0.19739583333333333" />
         <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/fragment_news.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/fragment_news_list.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/2_Working_on_projects/RecentNews/app/src/main/res/layout/item_category.xml" value="0.209375" />
