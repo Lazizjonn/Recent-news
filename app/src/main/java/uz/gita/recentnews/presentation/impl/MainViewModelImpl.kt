@@ -11,13 +11,13 @@ import retrofit2.HttpException
 import uz.gita.mynewsapp.utils.isConnected
 import uz.gita.recentnews.data.source.local.room.entity.NewsEntity
 import uz.gita.recentnews.domain.repository.NewsRepository
-import uz.gita.recentnews.presentation.NewsViewModel
+import uz.gita.recentnews.presentation.MainViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsViewModelImpl @Inject constructor(
+class MainViewModelImpl @Inject constructor(
     private val repository: NewsRepository
-) : ViewModel(), NewsViewModel {
+) : ViewModel(), MainViewModel {
 
     override var errorLivedata = MutableLiveData<String>()
     override var progressLivedata = MutableLiveData<Boolean>()

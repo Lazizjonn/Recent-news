@@ -10,31 +10,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.recentnews.R
 import uz.gita.recentnews.data.source.local.room.entity.NewsEntity
-import uz.gita.recentnews.databinding.FragmentNewsListBinding
-import uz.gita.recentnews.presentation.NewsViewModel
-import uz.gita.recentnews.presentation.impl.NewsViewModelImpl
+import uz.gita.recentnews.databinding.FragmentMainBinding
+import uz.gita.recentnews.presentation.MainViewModel
+import uz.gita.recentnews.presentation.impl.MainViewModelImpl
 import uz.gita.recentnews.ui.adapter.NewsListAdapter
 
 @AndroidEntryPoint
-class NewsListFragment : Fragment(R.layout.fragment_news_list) {
-    private val binding by viewBinding(FragmentNewsListBinding::bind)
-    private val viewModel: NewsViewModel by viewModels<NewsViewModelImpl>()
+class MainFragment : Fragment(R.layout.fragment_main) {
+    private val binding by viewBinding(FragmentMainBinding::bind)
+    private val viewModel: MainViewModel by viewModels<MainViewModelImpl>()
     private val adapter = NewsListAdapter()
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
 
-        buttonBack.setOnClickListener(View.OnClickListener {
+        buttonBack.setOnClickListener {
             // If the navigation drawer is not open then open it, if its already open then close it.
             if (!drawer.isDrawerOpen(GravityCompat.START)) drawer.openDrawer(GravityCompat.START)
             else drawer.closeDrawer(GravityCompat.END)
-        })
+        }
         swipeRefresh.setOnRefreshListener {
             viewModel.allNews("all")
         }
@@ -46,7 +45,7 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
         viewModel.loadNewsLivedata.observe(viewLifecycleOwner, loadNewsObserver)
 
         adapter.setListener {
-            findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToNewsFragment(it))
+            findNavController().navigate(MainFragmentDirections.actionNewsListFragmentToNewsFragment(it))
         }
 
     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.screen.NewsListFragment">
+    tools:context=".ui.screen.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -57,7 +57,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/titleNews"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_heart2" />
+                android:src="@drawable/ic_heart2"
+                tools:ignore="ContentDescription" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

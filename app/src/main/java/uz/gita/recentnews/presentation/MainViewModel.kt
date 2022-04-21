@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import uz.gita.recentnews.data.model.responce.AllNewsResponse
 import uz.gita.recentnews.data.source.local.room.entity.NewsEntity
 
-interface NewsViewModel {
+interface MainViewModel {
 
     val errorLivedata: LiveData<String>
     val progressLivedata: LiveData<Boolean>

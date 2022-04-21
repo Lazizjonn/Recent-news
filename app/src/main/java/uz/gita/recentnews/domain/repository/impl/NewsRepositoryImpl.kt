@@ -1,7 +1,5 @@
 package uz.gita.recentnews.domain.repository.impl
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -16,15 +14,14 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val api: Api,
-    private val room: MyRoomDataBase,
-    @ApplicationContext private val context: Context
+    private val room: MyRoomDataBase
 ) : NewsRepository {
 
     override fun getAllNewsFromNet(query: String): Flow<Result<List<NewsEntity>>> = flow<Result<List<NewsEntity>>> {
         val response = api.getAllNews(query)
 
         if (response.isSuccessful) {
-            var a: ArrayList<NewsEntity> = ArrayList<NewsEntity>()
+            val a: ArrayList<NewsEntity> = ArrayList<NewsEntity>()
             response.body()?.let { it1 ->
                 /*a.addAll(it1.articles.map { it2 ->
                     NewsEntity(
@@ -76,6 +73,5 @@ class NewsRepositoryImpl @Inject constructor(
 
 
     override fun getAllNewsFromRoom(query: String): List<NewsEntity> = room.getNewsDao().getAllNews(query)
-
 
 }
