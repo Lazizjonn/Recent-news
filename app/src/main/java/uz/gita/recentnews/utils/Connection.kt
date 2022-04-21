@@ -9,7 +9,7 @@ import uz.gita.recentnews.app.App
 
 fun isConnected(): Boolean = App.instance.isAvailableNetwork()
 
-private fun Context.isAvailableNetwork(): Boolean {
+fun Context.isAvailableNetwork(): Boolean {
     var result = false
     val connectivityManager =
         getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    fun logging(): HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+    fun logging(): HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     var client = OkHttpClient.Builder().addInterceptor(logging()).build()
 

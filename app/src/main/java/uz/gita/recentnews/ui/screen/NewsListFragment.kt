@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import uz.gita.recentnews.MainActivity
 import uz.gita.recentnews.R
 import uz.gita.recentnews.databinding.FragmentNewsListBinding
 import uz.gita.recentnews.presentation.NewsViewModel
@@ -20,24 +21,36 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
     private val binding by viewBinding(FragmentNewsListBinding::bind)
     private val viewModel: NewsViewModel by viewModels<NewsViewModelImpl>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = NewsListAdapter()
+        buttonBack.setOnClickListener{
 
-        binding.listNews.layoutManager = LinearLayoutManager(requireContext())
-        binding.listNews.adapter = adapter
+        }
+
+
+
+        val adapter = NewsListAdapter()
+        listNews.layoutManager = LinearLayoutManager(requireContext())
+        listNews.adapter = adapter
 
 //        viewModel.allNews("all")
-        viewModel.noNetConnectionLivedata.observe(viewLifecycleOwner) {
+        viewModel.errorLivedata.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.loadNewsLivedata.observe(viewLifecycleOwner) { v ->
             v.articles.let {
-                Log.d("TAG", "onViewCreated: $it")
+                Log.d("TTT", "size : ${it.size}")
                 adapter.submitList(it)
             }
         }
+
+        viewModel.progressLivedata.observe(viewLifecycleOwner) {
+            if (it) binding.swipeRefresh.visibility = View.VISIBLE
+            else binding.swipeRefresh.visibility = View.INVISIBLE
+        }
+
     }
 }

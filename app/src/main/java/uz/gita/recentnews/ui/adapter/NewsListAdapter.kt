@@ -53,9 +53,7 @@ class NewsListAdapter : ListAdapter<ArticlesItem, NewsListAdapter.NewsListViewHo
 
             descriptionNews!!.text = item.description
             isfav!!.isChecked = false
-
         }
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListViewHolder {
         return NewsListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false))
@@ -63,5 +61,4 @@ class NewsListAdapter : ListAdapter<ArticlesItem, NewsListAdapter.NewsListViewHo
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         holder.bind()
     }
-
 }

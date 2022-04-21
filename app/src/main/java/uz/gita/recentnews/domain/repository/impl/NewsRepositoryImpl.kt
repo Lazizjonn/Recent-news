@@ -1,50 +1,41 @@
 package uz.gita.recentnews.domain.repository.impl
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import uz.gita.mynewsapp.utils.isConnected
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import uz.gita.mynewsapp.utils.isAvailableNetwork
 import uz.gita.recentnews.data.model.responce.AllNewsResponse
 import uz.gita.recentnews.data.source.remote.Api
 import uz.gita.recentnews.domain.repository.NewsRepository
 import javax.inject.Inject
-import javax.inject.Singleton
-
-@Singleton
-class NewsRepositoryImpl @Inject constructor(val api: Api) :
-    NewsRepository {
-
-    override val noNetConnectionLivedata = MutableLiveData<Unit>()
-    override val errorLivedata = MutableLiveData<String>()
-    override val progressLivedata = MutableLiveData<Boolean>()
 
 
-    override suspend fun getAllNewsFromNet(query: String): LiveData<AllNewsResponse> = liveData {
-        try {
-            if (!isConnected()) {
-                // TODO """""''
-//                noNetConnectionLivedata.postValue(Unit)
+class NewsRepositoryImpl @Inject constructor(
+    private val api: Api,
+    @ApplicationContext private val context: Context
+) : NewsRepository {
 
-            } else {
-                progressLivedata.postValue(true)
-                val response = api.getAllNews(query)
+    override fun getAllNewsFromNet(query: String) = flow<Result<AllNewsResponse>> {
 
-                if (response.isSuccessful) {
-                    response.body()?.let { emit(it) }
-                    progressLivedata.postValue(false)
 
-                } else {
-                    errorLivedata.postValue("Responce is unsuccessful")
-                    progressLivedata.postValue(false)
-                }
-            }
-        } catch (e: Throwable){
-            errorLivedata.postValue("Error occurred: $e")
+        if (!context.isAvailableNetwork()) {
+            emit(Result.failure(Exception("Internet failure")))
+            return@flow
         }
 
-    }
+        val response = api.getAllNews(query)
 
+        if (response.isSuccessful) {
+            response.body()?.let { emit(Result.success(it)) }
+        } else {
+            emit(Result.failure(Exception("Response is unsuccessful")))
+        }
+
+    }.catch { emit(Result.failure(it)) }
+        .flowOn(Dispatchers.IO)
 
     override fun getAllNewsFromRoom(query: String) {
 

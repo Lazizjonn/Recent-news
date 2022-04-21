@@ -2,17 +2,14 @@ package uz.gita.recentnews.domain.repository
 
 import androidx.lifecycle.LiveData
 import dagger.Provides
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import uz.gita.recentnews.data.model.responce.AllNewsResponse
 
 
 interface NewsRepository {
 
-    val noNetConnectionLivedata: LiveData<Unit>
-    val errorLivedata: LiveData<String>
-    val progressLivedata: LiveData<Boolean>
-
-    suspend fun getAllNewsFromNet(query: String): LiveData<AllNewsResponse>
+    fun getAllNewsFromNet(query: String): Flow<Result<AllNewsResponse>>
 
     fun getAllNewsFromRoom(query: String)
 }
