@@ -36,6 +36,7 @@ class NewsRepositoryImpl @Inject constructor(
                     )
                 })*/
 
+
                 val b = NewsEntity(
                     title = "      market value in its biggest drop since 2004    ",
                     description = "Netflix shares crashed 35% on Wednesday, wiping off $54 billion from the company's market value in its biggest drop since 2004. It made Netflix the worst-performing stock of the year on both S&P 500 and Nasdaq 100 indexes. Netflix shares crashed after it reported losing 2,00,000 subscribers in Q1 2022, marking the first drop in subscribers in over 10 years.",
