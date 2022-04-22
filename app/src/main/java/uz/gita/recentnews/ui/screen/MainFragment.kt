@@ -34,18 +34,24 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             if (!drawer.isDrawerOpen(GravityCompat.START)) drawer.openDrawer(GravityCompat.START)
             else drawer.closeDrawer(GravityCompat.END)
         }
+
+        clickFavourite.setOnClickListener {
+            viewModel.openFavouriteScreen()
+        }
         swipeRefresh.setOnRefreshListener {
             viewModel.allNews("all")
         }
+
         listNews.layoutManager = LinearLayoutManager(requireContext())
         listNews.adapter = adapter
 
         viewModel.errorLivedata.observe(viewLifecycleOwner, errorObserver)
         viewModel.progressLivedata.observe(viewLifecycleOwner, progressObserver)
         viewModel.loadNewsLivedata.observe(viewLifecycleOwner, loadNewsObserver)
+        viewModel.openFavouriteScreenLiveData.observe(viewLifecycleOwner, openFavouriteScreenObserver)
 
         adapter.setListener {
-            findNavController().navigate(MainFragmentDirections.actionNewsListFragmentToNewsFragment(it))
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToReadMoreFragment(it))
         }
 
     }
@@ -56,5 +62,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val errorObserver = Observer<String> { Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show() }
     private val loadNewsObserver = Observer<List<NewsEntity>> {
         it.let { adapter.submitList(it) }
+    }
+    private val openFavouriteScreenObserver = Observer<Unit> {
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToFavouriteFragment())
     }
 }

@@ -1,5 +1,6 @@
 package uz.gita.recentnews.presentation.impl
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,6 +23,7 @@ class MainViewModelImpl @Inject constructor(
     override var errorLivedata = MutableLiveData<String>()
     override var progressLivedata = MutableLiveData<Boolean>()
     override var loadNewsLivedata = MutableLiveData<List<NewsEntity>>()
+    override val openFavouriteScreenLiveData =  MutableLiveData<Unit>()
 
     init {
         allNews("all")
@@ -51,5 +53,9 @@ class MainViewModelImpl @Inject constructor(
            loadNewsLivedata.value =  repository.getAllNewsFromRoom(query)
             progressLivedata.value = false
         }
+    }
+
+    override fun openFavouriteScreen() {
+       openFavouriteScreenLiveData.value = Unit
     }
 }

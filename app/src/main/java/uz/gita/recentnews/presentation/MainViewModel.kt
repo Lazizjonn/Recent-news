@@ -9,9 +9,11 @@ interface MainViewModel {
     val errorLivedata: LiveData<String>
     val progressLivedata: LiveData<Boolean>
     val loadNewsLivedata: LiveData<List<NewsEntity>>
+    val openFavouriteScreenLiveData : LiveData<Unit>
 
 
 
     fun allNews(query: String)
+    fun openFavouriteScreen()
 
 }
